@@ -18,10 +18,10 @@ This is a simple check list of everything I have set out to do to try to get RS4
 
 During each step, code will be commented out until that step has been reached, as I don't want to try to interface with hardware that might be on different pins and fry something in the process.
 
-* [ ] Retarget build to the different processor
-* [ ] Get serial output to show up on the DFM system
+* [X] Retarget build to the different processor
+* [X] Get serial output to show up on the DFM system
 * [ ] Get the radio to transmit a CW signal
-* [ ] Get GPS to acquire and display a fix
+* [X] Get GPS to acquire and display a fix
 * [ ] Get the radio to transmit APRS or other modes
 * [ ] Get the radio to transmit out of original bands
 
