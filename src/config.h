@@ -11,7 +11,7 @@
  */
 
 // Set the tracker amateur radio call sign here
-#define CALLSIGN "N0UUU"
+#define CALLSIGN "N0CALL"
 
 // Disabling LEDs will save power
 // Red LED: Lit during initialization and transmit.
@@ -22,7 +22,7 @@
 #define LEDS_DISABLE_ALTITUDE_METERS 1000
 
 // Allow powering off the sonde by pressing the button for over a second (when the sonde is not transmitting)
-#define ALLOW_POWER_OFF true
+#define ALLOW_POWER_OFF false
 
 // Enable use of an externally connected I²C BMP280/BME280 atmospheric sensor
 // NOTE: Only BME280 sensors will report humidity. For BMP280 humidity readings will be zero.
@@ -56,7 +56,7 @@
 
 // Si4032 transmit power: 0..7
 // 0 = -1dBm, 1 = 2dBm, 2 = 5dBm, 3 = 8dBm, 4 = 11dBm, 5 = 14dBm, 6 = 17dBm, 7 = 20dBm
-#define RADIO_SI4032_TX_POWER 7
+#define RADIO_SI4032_TX_POWER 5
 
 // Which modes to transmit using the built-in Si4032 transmitter chip
 #define RADIO_SI4032_TX_CW true
