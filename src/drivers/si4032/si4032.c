@@ -7,11 +7,11 @@
 
 #define SI4032_CLOCK 26.0f
 
-#define GPIO_SI4032_NSEL GPIOC
-#define GPIO_PIN_SI4032_NSEL GPIO_Pin_13
+#define GPIO_SI4032_NSEL GPIOB
+#define GPIO_PIN_SI4032_NSEL GPIO_Pin_2
 
-#define GPIO_SI4032_SDI GPIOB
-#define GPIO_PIN_SI4032_SDI GPIO_Pin_15
+#define GPIO_SI4032_SDI GPIOC
+#define GPIO_PIN_SI4032_SDI GPIO_Pin_3
 
 static inline uint8_t si4032_write(uint8_t reg, uint8_t value)
 {

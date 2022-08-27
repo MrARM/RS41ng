@@ -3,15 +3,15 @@
 
 // Enable semihosting to receive debug logs during development
 // NOTE: Semihosting has to be disabled when the RS41 radiosonde is not connected to the STM32 programmer dongle, otherwise the firmware will not run.
-//#define SEMIHOSTING_ENABLE
-//#define LOGGING_ENABLE
+#define SEMIHOSTING_ENABLE
+#define LOGGING_ENABLE
 
 /**
  * Global configuration
  */
 
 // Set the tracker amateur radio call sign here
-#define CALLSIGN "MYCALL"
+#define CALLSIGN "N0UUU"
 
 // Disabling LEDs will save power
 // Red LED: Lit during initialization and transmit.
@@ -22,7 +22,7 @@
 #define LEDS_DISABLE_ALTITUDE_METERS 1000
 
 // Allow powering off the sonde by pressing the button for over a second (when the sonde is not transmitting)
-#define ALLOW_POWER_OFF false
+#define ALLOW_POWER_OFF true
 
 // Enable use of an externally connected I²C BMP280/BME280 atmospheric sensor
 // NOTE: Only BME280 sensors will report humidity. For BMP280 humidity readings will be zero.

@@ -756,6 +756,7 @@ void radio_handle_main_loop()
         bool success = radio_start_transmit(radio_start_transmit_entry);
         start_tick = system_get_tick();
 
+
         radio_start_transmit_entry = NULL;
         if (!success) {
             radio_next_transmit_entry();
@@ -767,6 +768,7 @@ void radio_handle_main_loop()
             radio_shared_state.radio_transmit_next_symbol_flag = true;
         }
     }
+
 
     if (radio_shared_state.radio_transmission_active && radio_shared_state.radio_transmit_next_symbol_flag) {
         radio_shared_state.radio_transmit_next_symbol_flag = false;

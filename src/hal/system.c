@@ -43,7 +43,8 @@ static void rcc_init()
     ErrorStatus hse_status = RCC_WaitForHSEStartUp();
     if (hse_status != SUCCESS) {
         // If HSE fails to start up, the application will have incorrect clock configuration.
-        while (true) {}
+        log_info("RCC HSE Failed to start!\n");
+        //while (true) {}
     }
     //SystemInit();
 
@@ -57,7 +58,7 @@ static void rcc_init()
     RCC_PCLK1Config(RCC_HCLK_Div1); // Was: 2
     RCC_SYSCLKConfig(RCC_SYSCLKSource_HSE);
 
-    while (RCC_GetSYSCLKSource() != 0x04);
+    //while (RCC_GetSYSCLKSource() != 0x04);
 }
 
 static void gpio_init()
@@ -72,28 +73,34 @@ static void gpio_init()
     GPIO_InitTypeDef gpio_init;
 
     // Shutdown request
-    gpio_init.GPIO_Pin = GPIO_Pin_12;
+    gpio_init.GPIO_Pin = GPIO_Pin_0;
     gpio_init.GPIO_Mode = GPIO_Mode_Out_PP;
     gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOA, &gpio_init);
+    GPIO_Init(GPIOC, &gpio_init);
 
     // Battery voltage (analog)
-    gpio_init.GPIO_Pin = GPIO_Pin_5;
-    gpio_init.GPIO_Mode = GPIO_Mode_AIN;
-    gpio_init.GPIO_Speed = GPIO_Speed_10MHz;
-    GPIO_Init(GPIOA, &gpio_init);
+//    gpio_init.GPIO_Pin = GPIO_Pin_5;
+//    gpio_init.GPIO_Mode = GPIO_Mode_AIN;
+//    gpio_init.GPIO_Speed = GPIO_Speed_10MHz;
+//    GPIO_Init(GPIOA, &gpio_init);
 
     // Button state (analog)
-    gpio_init.GPIO_Pin = GPIO_Pin_6;
+    gpio_init.GPIO_Pin = GPIO_Pin_8;
     gpio_init.GPIO_Mode = GPIO_Mode_AIN;
     gpio_init.GPIO_Speed = GPIO_Speed_10MHz;
-    GPIO_Init(GPIOA, &gpio_init);
+    GPIO_Init(GPIOC, &gpio_init);
 
-    // LEDs
-    gpio_init.GPIO_Pin = GPIO_PIN_LED_GREEN | GPIO_PIN_LED_RED;
+    // Red LED
+    gpio_init.GPIO_Pin = GPIO_PIN_LED_RED;
     gpio_init.GPIO_Mode = GPIO_Mode_Out_PP;
     gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOB, &gpio_init);
+
+    // Green LED
+    gpio_init.GPIO_Pin = GPIO_PIN_LED_GREEN;
+    gpio_init.GPIO_Mode = GPIO_Mode_Out_PP;
+    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOC, &gpio_init);
 }
 
 /**
@@ -165,7 +172,7 @@ uint16_t system_get_button_adc_value()
 
 void system_shutdown()
 {
-    GPIO_SetBits(GPIOA, GPIO_Pin_12);
+    GPIO_SetBits(GPIOC, GPIO_Pin_0);
 }
 
 void system_handle_button()
@@ -185,6 +192,7 @@ void system_handle_button()
         }
     } else {
         if (shutdown) {
+            log_info("Shutdown requested via button\n");
             system_shutdown();
         }
         button_pressed = 0;
@@ -251,16 +259,16 @@ void system_enable_tick()
 
 void system_set_green_led(bool enabled)
 {
-    if (enabled) {
-        GPIO_ResetBits(GPIOB, GPIO_PIN_LED_GREEN);
+    if (!enabled) {
+        GPIO_ResetBits(GPIOC, GPIO_PIN_LED_GREEN);
     } else {
-        GPIO_SetBits(GPIOB, GPIO_PIN_LED_GREEN);
+        GPIO_SetBits(GPIOC, GPIO_PIN_LED_GREEN);
     }
 }
 
 void system_set_red_led(bool enabled)
 {
-    if (enabled) {
+    if (!enabled) {
         GPIO_ResetBits(GPIOB, GPIO_PIN_LED_RED);
     } else {
         GPIO_SetBits(GPIOB, GPIO_PIN_LED_RED);
@@ -279,12 +287,18 @@ void system_enable_irq()
 
 void system_init()
 {
+    log_info("RCC init\n");
     rcc_init();
+    log_info("NVIC init\n");
     nvic_init();
+    log_info("GPIO init\n");
     gpio_init();
-    dma_adc_init();
+    //log_info("DMA ADC init\n");
+    //dma_adc_init();
+    log_info("DELAY init\n");
     delay_init();
 
+    log_info("System Scheduler init\n");
     system_scheduler_timer_init();
 
     RCC_ClocksTypeDef RCC_Clocks;

@@ -12,7 +12,7 @@ else ()
   set(CMAKE_OBJCOPY ${TOOLCHAIN_PATH}/arm-none-eabi-objcopy.exe)
 endif ()
 
-add_definitions(-DSTM32F100C8)
+add_definitions(-DSTM32F100R8)
 add_definitions(-DSTM32F10X_MD_VL)
 add_definitions(-DUSE_STDPERIPH_DRIVER)
 add_definitions(-DSUPPORT_CPLUSPLUS)

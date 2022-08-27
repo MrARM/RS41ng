@@ -3,8 +3,8 @@
 
 #include "hal.h"
 
-#define GPIO_PIN_LED_GREEN GPIO_Pin_7
-#define GPIO_PIN_LED_RED GPIO_Pin_8
+#define GPIO_PIN_LED_GREEN GPIO_Pin_6
+#define GPIO_PIN_LED_RED GPIO_Pin_12
 
 #define SYSTEM_SCHEDULER_TIMER_TICKS_PER_SECOND 10000
 
