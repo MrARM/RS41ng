@@ -13,6 +13,9 @@
 #include "config.h"
 #include "log.h"
 
+// https://github.com/mikaelnousiainen/RS41ng/issues/23 - Fix for a bug introduced in a newer version of the compiler.
+void* __dso_handle;
+
 uint32_t counter = 0;
 bool led_state = true;
 
