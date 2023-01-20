@@ -7,6 +7,8 @@
 #include "hal/datatimer.h"
 #include "drivers/ubxg6010/ubxg6010.h"
 #include "drivers/si4032/si4032.h"
+#include "drivers/si4464/si4464.h"
+#include "drivers/si4464/types.h"
 #include "bmp280_handler.h"
 #include "si5351_handler.h"
 #include "radio.h"
@@ -102,8 +104,14 @@ gps_init:
         goto gps_init;
     }
 
-    log_info("Si4032 init\n");
-    si4032_init();
+    log_info("Si4063 init\n");
+    Si4464_Init();
+    setModemAFSK();
+    radioTune(405000000, 0, 16, 100);
+    for(int i = 100; i>0; i--){
+        Si4464_writeFIFO(i, i);
+    }
+
 
     if (bmp280_enabled) {
         for (int i = 0; i < 3; i++) {
